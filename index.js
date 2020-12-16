@@ -68,13 +68,30 @@ const OnMovieSelect = async (movie, summaryElement, side) => {
 };
  
 const runComparison = () => {
-    console.log('Time for comparison');
-}
+    const leftSideStats = document.querySelectorAll('#left-summary .notification');
+    const rightSideStats = document.querySelectorAll('#right-summary .notification');
+
+    leftSideStats.forEach((leftStat, index) => {
+        const rightStat = rightSideStats[index];
+
+        const leftSideValue = leftStat.dataset.value;
+        const rightSidevalue = rightStat.dataset.value;
+
+        if (rightSidevalue > leftSideValue){
+            leftStat.classList.remove('is-primary');
+            leftStat.classList.add('is-warning');
+        } else {
+            rightStat.classList.remove('is-primary');
+            rightStat.classList.add('is-warning');
+        }
+        
+    });
+};
 
 const movieTemplate = (movieDetail) => {
     const dollar = parseInt(movieDetail.BoxOffice.replace(/\$/g, '').replace(/,/g, ''));
 
-    const metascore = parseInt(movieDetail.Metascore);
+    const metascore = parseInt(movieDetail.Metascore); 
     const imdbRating = parseFloat(movieDetail.imdbRating);
     const imdbVotes = parseInt(movieDetail.imdbVotes.replace(/,/g, ''));
 
